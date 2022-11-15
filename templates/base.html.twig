@@ -13,38 +13,38 @@
         {# lien ver la page css #}
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
     </head>
     <body>
     <header>
         <div class="container">
             <h1 class="header-logo">
                 {# lien ver la page d'aceuil grace au logo avec un path, passage vers une asset pour le lien vers le logo #}
-                <a href="{{ path() }}"><img src="{{ asset('img/logo.png') }}" alt="Sortir.com">Sortir.com</a>
+                <a href=""><img src="{{ asset('img/logo.png') }}" alt="Sortir.com">Sortir.com</a>
             </h1>
-            nav class="header-nav">
+            <nav class="header-nav">
             <ul>
 
-                {% if app.user %}
-                <il> <a href="{{ path() }}" title="Home">Acceuil</a> </il>
-                <il> <a href="{{ path() }}"title="Ville">Villes</a> </il>
-                <il> <a href="{{ path() }}" title="Campus">Campus</a> </il>
-                <il> <a href="{{ path() }}" title="profil">Mon profil</a> </il>
-                    <il> <a href="{{ path() }}" title="Lougout">Se déconnecter </a></il>
-                {% else %}
-                    <il> <a href="{{ path() }}" title="Create your account">Register</a> </il>
-                    <il><a href="{{ path() }}" title="Login">Login</a></il>
-                {% endif %}
+                <il> <a href="#" title="Home">Acceuil</a> </il>
+                <il> <a href="#"title="Ville">Villes</a> </il>
+                <il> <a href="#" title="Campus">Campus</a> </il>
+                <il> <a href="#" title="profil">Mon profil</a> </il>
+
+                    <il> <a href="#" title="Lougout">Se déconnecter </a></il>
+                    <il> <a href="#" title="Create your account">Register</a> </il>
+                    <il><a href="#" title="Login">Login</a></il>
+
 
             </ul>
             </nav>
         </div>
     </header>
-
-
-
+    <main>
         {% block body %}{% endblock %}
+    </main>
+
+    <footer>
+       <div>&copy; {{ "now"|date("Y") }} Sortir.com</div>
+    </footer>
     </body>
+
 </html>
