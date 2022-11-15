@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<label for="pseudo">Pseudo: </label>
+<input type="pseudo" name="pseudo" id="pseudo" required>
+<br><br>
+<label for="nom">Nom: </label>
+<input type="nom" name="nom" id="nom" required>
+<br><br>
+<label for="prenom">Prénom: </label>
+<input type="prenom" name="prenom" id="prenom" required>
+<br><br>
+<label for="tel">Téléphone: </label>
+<input type="tel" name="tel" id="tel" required>
+<br><br>
+<label for="email">Email: </label>
+<input type="email" name="email" id="email" required>
+<br><br>
+<label for="mdp">Mot de passe: </label>
+<input type="mdp" name="mdp" id="mdp" required>
+<br><br>
+<label for="confmdp">Confirmer mot de passe: </label>
+<input type="confmdp" name="confmdp" id="confmdp" required>
+<br><br>
+    Campus:
+    <select name="campus" id="campus">
+        <option value="">Choisir le campus</option>
+        <option value="campus1">Campus1</option>
+        <option value="campus2">campus2</option>
+        <option value="campus3">campus3</option>
+        <option value="campus4">campus4</option>
+        <option value="campus5">campus5</option>
+        <option value="campus6">campus6</option>
+    </select>
+<br><br>
+Ma photo: a faire
+<br><br>
+
+{% endblock %}
