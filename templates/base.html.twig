@@ -2,18 +2,49 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <meta name="viewport"
+              content="width=device-width, user-scalable=yes, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>{% block title %}Sortir.com{% endblock %}</title>
+
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+
+        {# lien ver la page css #}
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
     <body>
+    <header>
+        <div class="container">
+            <h1 class="header-logo">
+                {# lien ver la page d'aceuil grace au logo avec un path, passage vers une asset pour le lien vers le logo #}
+                <a href="{{ path() }}"><img src="{{ asset('img/logo.png') }}" alt="Sortir.com">Sortir.com</a>
+            </h1>
+            nav class="header-nav">
+            <ul>
+
+                {% if app.user %}
+                <il> <a href="{{ path() }}" title="Home">Acceuil</a> </il>
+                <il> <a href="{{ path() }}"title="Ville">Villes</a> </il>
+                <il> <a href="{{ path() }}" title="Campus">Campus</a> </il>
+                <il> <a href="{{ path() }}" title="profil">Mon profil</a> </il>
+                    <il> <a href="{{ path() }}" title="Lougout">Se déconnecter </a></il>
+                {% else %}
+                    <il> <a href="{{ path() }}" title="Create your account">Register</a> </il>
+                    <il><a href="{{ path() }}" title="Login">Login</a></il>
+                {% endif %}
+
+            </ul>
+            </nav>
+        </div>
+    </header>
+
+
+
         {% block body %}{% endblock %}
     </body>
 </html>
