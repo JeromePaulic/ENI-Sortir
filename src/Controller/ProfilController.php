@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\ProfilType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -13,6 +14,13 @@ class ProfilController extends AbstractController
 
     public function profil()
     {
-        return $this->render('profil/profil.html.twig');
+        $user = new Profil();
+        $profilForm = $this->createForm(ProfilType::class, $user);
+
+        //todo traiter le formulaire
+
+        return $this->render('profil/profil.html.twig', [
+            'profilForm' => $profilForm->createView()
+        ]);
     }
 }
