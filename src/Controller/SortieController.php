@@ -28,4 +28,13 @@ class SortieController extends AbstractController
             'sortieForm'=> $sortieForm->createView()
         ]);
     }
+        #[Route('/sortie/surprimer/{id}', name: 'sortie_supprimer')]
+        public function supprimer (Sortie $sortie, EntityManagerInterface $entityManager)
+        {
+            $entityManager-> remove($sortie);
+            $entityManager->flush();
+
+            return $this ->redirectToRoute();
+        }
+
 }
