@@ -19,24 +19,26 @@
         <div class="container">
             <h1 class="header-logo">
                 {# lien ver la page d'aceuil grace au logo avec un path, passage vers une asset pour le lien vers le logo #}
-                <a href="#"><img src="{{ asset('img/logo.png') }}" class="logo" alt="Sortir.com"></a>
+                <a href="{{ path('home') }}"><img src="{{ asset('img/logo.png') }}" class="logo" alt="Sortir.com"></a>
             </h1>
             <nav class="header-nav">
             <ul>
 
-                <il> <a href="home" title="Home">Accueil</a> </il>
-                <il> <a href="#"title="Ville">Villes</a> </il>
-                <il> <a href="#" title="Campus">Campus</a> </il>
+
+                <il> <a href="{{ path('ville_afficher') }}"title="Ville">Villes</a> </il>
+                <il> <a href="{{ path('campus_affichage') }}" title="Campus">Campus</a> </il>
+                <il> <a href="{{ path('home') }}" title="Home">Accueil</a> </il>
                 <il> <a href="profil" title="profil">Mon profil</a> </il>
-                <il> <a href="register" title="login">S'inscrire</a> </il>
-                <il> <a href="login" title="login">Se connecter</a> </il>
-                <il> <a href="logout" title="logout">Se déconnecter </a></il>
+                <il> <a href="connexion" title="login">Se connecter</a> </il>
+                <il> <a href="#" title="logout">Se déconnecter </a></il>
 
 
 
             </ul>
             </nav>
         </div>
+
+        {% block header %}{% endblock %}
     </header>
     <main>
         {% block body %}{% endblock %}

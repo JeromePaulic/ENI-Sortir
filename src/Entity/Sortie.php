@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SortieRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -43,6 +45,18 @@ class Sortie
     #[ORM\ManyToOne(inversedBy: 'sorties')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Etat $etat = null;
+
+    #[ORM\ManyToOne(inversedBy: 'sortiesOrganise')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?User $organisateur = null;
+
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'sortie')]
+    private Collection $participant;
+
+    public function __construct()
+    {
+        $this->participant = new ArrayCollection();
+    }
 
 
 
@@ -155,6 +169,42 @@ class Sortie
     public function setEtat(?Etat $etat): self
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getOrganisateur(): ?User
+    {
+        return $this->organisateur;
+    }
+
+    public function setOrganisateur(?User $organisateur): self
+    {
+        $this->organisateur = $organisateur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getParticipant(): Collection
+    {
+        return $this->participant;
+    }
+
+    public function addParticipant(User $participant): self
+    {
+        if (!$this->participant->contains($participant)) {
+            $this->participant->add($participant);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipant(User $participant): self
+    {
+        $this->participant->removeElement($participant);
 
         return $this;
     }

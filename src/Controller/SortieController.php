@@ -9,17 +9,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use App\Entity\Etat;
 class SortieController extends AbstractController
 {
     #[Route('/sortie/cree', name: 'sortie_cree')]
     public function cree(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $sortie=new Sortie();
+        $sortie = new Sortie();
+
         $sortieForm = $this-> createForm(SortieType::class,$sortie);
 
         $sortieForm->handleRequest($request);
             if($sortieForm->isSubmitted() && $sortieForm->isValid()){
+                $sortie ->setOrganisateur($this->getUser());
+
+                //todo géré l'état de la sortie peu-être avec un service?
+
                 $entityManager->persist($sortie);
                 $entityManager->flush();
             }
@@ -28,6 +33,12 @@ class SortieController extends AbstractController
             'sortieForm'=> $sortieForm->createView()
         ]);
     }
+
+
+
+
+
+
         #[Route('/sortie/surprimer/{id}', name: 'sortie_supprimer')]
         public function supprimer (Sortie $sortie, EntityManagerInterface $entityManager)
         {
@@ -37,4 +48,11 @@ class SortieController extends AbstractController
             return $this ->redirectToRoute();
         }
 
+        
+
+
+
+
 }
+
+

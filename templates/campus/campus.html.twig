@@ -1,9 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent () }} |campus {% endblock %}
+{% block title %}{{ parent () }} | campus {% endblock %}
 
 {% block body %}
 <h1>Gérer les campus</h1>
     <h2>Filtrer les sites</h2>
+    <section>
+        <h3>Campus</h3>
+        {% for campu in campus %}
+            <div>
+         {{ campu.nom }}
+            </div>
+        {% endfor %}
+    </section>
+
+<br>
 
 {% endblock %}
