@@ -36,9 +36,6 @@ class SortieController extends AbstractController
 
 
 
-
-
-
         #[Route('/sortie/surprimer/{id}', name: 'sortie_supprimer')]
         public function supprimer (Sortie $sortie, EntityManagerInterface $entityManager)
         {
