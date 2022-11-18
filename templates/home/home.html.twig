@@ -5,9 +5,14 @@
 {% block header %}
 <div>
     <h4> Date du jour: {{  "now"|date('d/m/Y') }}</h4>
-    <h4> Participant: {{ app.user.prenom }} {{ app.user.nom }}</h4>
+   {# <h4> Participant: {{ app.user.prenom }} {{ app.user.nom }}</h4>#}
 </div>
+
+
 
 
 {% endblock %}
 
+{% block body %}
+    <a href="{{ path('sortie_cree') }}"title="crer-sortie">Créer une sortie</a> <br>
+{% endblock %}

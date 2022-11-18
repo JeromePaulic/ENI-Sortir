@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: SortieRepository::class)]
 class Sortie
 {
@@ -16,19 +16,28 @@ class Sortie
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255,)]
+    #[Assert\NotBlank(message:"la sortie doit avoir un nom svp") ]
+    #[Assert\Length( min:"4" , max:"255")]
+
     private ?string $nom = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank(message:" veuillez saisir date et heure svp") ]
+   // #[Assert\GreaterThanOrEqual(propertyPath: "") ]
+
     private ?\DateTimeInterface $dateHeureDebut = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message:" combien de temps va durer cette super sortie !") ]
     private ?int $duree = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\NotBlank(message:"Jusqu'a quand  peut-on  s'incrire à votre super activité!") ]
     private ?\DateTimeInterface $dateLimiteInscription = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message:"Plus on est de fou plus on rit! Mais combien vous serrez au Max!! ") ]
     private ?int $nbParticipantMax = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -40,6 +49,7 @@ class Sortie
 
     #[ORM\ManyToOne(inversedBy: 'sortiesOrganise')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank(message:"Ou aurra lieu l'activité ! ") ]
     private ?Lieu $lieu = null;
 
     #[ORM\ManyToOne(inversedBy: 'sorties')]
@@ -50,12 +60,14 @@ class Sortie
     #[ORM\JoinColumn(nullable: true)]
     private ?User $organisateur = null;
 
-    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'sortie')]
-    private Collection $participant;
+    #[ORM\OneToMany(mappedBy: 'sortie', targetEntity: Inscription::class)]
+    private Collection $inscriptions;
+
+
 
     public function __construct()
     {
-        $this->participant = new ArrayCollection();
+        $this->inscriptions = new ArrayCollection();
     }
 
 
@@ -186,28 +198,47 @@ class Sortie
     }
 
     /**
-     * @return Collection<int, User>
+     * @return Collection<int, Inscription>
      */
-    public function getParticipant(): Collection
+    public function getInscriptions(): Collection
     {
-        return $this->participant;
+        return $this->inscriptions;
     }
 
-    public function addParticipant(User $participant): self
+    public function addInscription(Inscription $inscription): self
     {
-        if (!$this->participant->contains($participant)) {
-            $this->participant->add($participant);
+        if (!$this->inscriptions->contains($inscription)) {
+            $this->inscriptions->add($inscription);
+            $inscription->setSortie($this);
         }
 
         return $this;
     }
 
-    public function removeParticipant(User $participant): self
+    public function removeInscription(Inscription $inscription): self
     {
-        $this->participant->removeElement($participant);
+        if ($this->inscriptions->removeElement($inscription)) {
+            // set the owning side to null (unless already changed)
+            if ($inscription->getSortie() === $this) {
+                $inscription->setSortie(null);
+            }
+        }
 
         return $this;
     }
+
+    /**
+     * @return bool
+     */
+    public function sortieComplete():bool
+    {
+        if ($this ->getNbParticipantMax()&& $this ->getInscriptions()->count()>=$this->getNbParticipantMax()){
+            return true;
+        }
+        return false;
+    }
+
+
 
 
 }

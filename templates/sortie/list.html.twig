@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {% endblock %}
+
+{% block body %}
+<section>
+    {% for sortie in sorties %}
+    <article>
+        <div>
+          Nom de la sortie:  {{ sortie.nom }}
+        </div>
+        <div>
+          Date et Heure de début:  {{ sortie.dateHeureDebut | date ("d-m-Y à H:i")}}
+        </div>
+        <div>
+         Date limite de d'inscription   {{ sortie.dateLimiteInscription|date ('d-m-Y') }}
+        </div>
+        <div>
+           Nombre de place  {{ sortie.nbParticipantMax }}
+        </div>
+        <div>
+          Etat:  {{ sortie.etat.libelle }}
+        </div>
+        <div>
+          Organisateur:  {{ sortie.organisateur.nom }}
+        </div>
+        <a href="{{ path('sortie_details' ,{'id': sortie.id}) }}" title="detail de la sortie">Afficher</a>
+        {# todo mettre un filtre pour savoir si il est inscrit ou non  #}
+        <a href="{{ path('inscription_inscriptionoupas',{'id':sortie.id}) }}" title="inscription">S'inscrire</a>
+        <a href="{{ path('inscription_inscriptionoupas',{'id':sortie.id}) }}" title="deinscription">Se déinscritre</a>
+    </article>
+<br>
+
+
+    {% endfor %}
+</section>
+{% endblock %}
+
