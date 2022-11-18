@@ -1,7 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {% if is_granted('ROLE_USER') %}{% if is_granted('ROLE_ADMIN') %}
+    <h1>Profil de {{ app.user.prenom }} {{ app.user.nom }} </h1>
+    <div>Pseudo :{{ app.user.pseudo }}</div>
+    <div>Nom : {{ app.user.nom }}</div>
+    <div>Prénom : {{ app.user.prenom }}<div>
+    <div>Email : {{ app.user.email }}<div>
 
-{{ form(profilForm) }}
+    <button><a href="{{ path('editprofil') }}" >Modifier le profil</a></button>
 
+
+
+{%  endif %}{%  endif %}
 {% endblock %}
