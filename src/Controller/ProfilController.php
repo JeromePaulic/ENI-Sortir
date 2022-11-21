@@ -73,4 +73,22 @@ class ProfilController extends AbstractController
 
 
 
+
+    /**
+     * Affichage du profil d'un user
+     *
+     * @Route("/profiluser/{id}", name="profiluser", requirements={"id": "\d+"})
+     */
+    public function profiluser(User $user): Response
+    {
+
+        return $this->render('profil/profiluser.html.twig', [
+            'user' => $user
+        ]);
+    }
+
+
+
+
+
 }

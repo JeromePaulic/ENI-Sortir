@@ -1,62 +1,58 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport"
-              content="width=device-width, user-scalable=yes, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>{% block title %}Sortir.com{% endblock %}</title>
+<head>
+    <title>{% block title %}Sortir.com{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/axentix@2.2.1/dist/axentix.min.css">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="icon" type="image/png" href="img/logo.png" />
+</head>
 
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+<body class="layout">
+<header>
+    <a href="{{ path('home') }}"><img src="{{ asset('img/logo.png') }}" class="logo" alt="Sortir.com"></a>
+    <nav class="navbar shadow-5 primary">
+        <div class="navbar-menu ml-auto">
+            <a class="navbar-link" href="{{ path('home') }}">Accueil</a>
+            {% if app.user %}
+                <a class="navbar-link" href="{{ path('profil') }}">Profil</a>
 
-        {# lien ver la page css #}
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a class="navbar-link" href="{{ path('ville_afficher') }}">Villes</a>
+                    <a class="navbar-link" href="{{ path('campus_affichage') }}">Campus</a>
+                {% endif %}
 
-    </head>
-    <body>
-    <header>
-        <div class="container">
-            <h1 class="header-logo">
-                {# lien ver la page d'aceuil grace au logo avec un path, passage vers une asset pour le lien vers le logo #}
-                <a href="{{ path('home') }}"><img src="{{ asset('img/logo.png') }}" class="logo" alt="Sortir.com"></a>
-            </h1>
-            <nav class="header-nav">
-            <ul>
-
-
-                <il> <a href="{{ path('ville_afficher') }}"title="Ville">Villes</a> </il>
-                <il> <a href="{{ path('campus_affichage') }}" title="Campus">Campus</a> </il>
-                <il> <a href="{{ path('home') }}" title="Home">Accueil</a> </il>
-                <il> <a href="profil" title="profil">Mon profil</a> </il>
-                <il> <a href="connexion" title="login">Se connecter</a> </il>
-                <il> <a href="#" title="logout">Se déconnecter </a></il>
+                <a class="navbar-link" href="{{ path('app_logout') }}">Déconnecter ({{ app.user.pseudo }})</a>
+            {%  else %}
+                <a class="navbar-link" href="{{ path('app_login') }}">Se connecter</a>
+                <a class="navbar-link" href="{{ path('app_register') }}">S'inscrire</a>
+            {% endif %}
 
 
-
-            </ul>
-            </nav>
         </div>
+    </nav>
+    {% block header %}{% endblock %}
+</header>
 
-        {% block header %}{% endblock %}
-    </header>
 
-    {# read and display all flash messages #}
-    {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <div class=" flash flash-{{ label }}">
-                {{ message }}
-            </div>
-        {% endfor %}
+{# read and display all flash messages #}
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class=" flash flash-{{ label }}">
+            {{ message }}
+        </div>
     {% endfor %}
+{% endfor %}
 
-    <main>
-        {% block body %}{% endblock %}
-    </main>
 
-    <footer>
-       <div>&copy; {{ "now"|date("Y") }} Sortir.com</div>
-    </footer>
-    </body>
+<main>
+    {% block body %}{% endblock %}
+</main>
 
+<footer class="footer primary">
+    <div>&copy; {{ "now"|date("Y") }} Sortir.com</div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/axentix@2.2.1/dist/axentix.min.js"></script>
+</body>
 </html>
