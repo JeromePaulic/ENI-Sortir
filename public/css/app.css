@@ -3,17 +3,70 @@
     height : 100px;
     margin-left: 5px;
 }
+.flash{
+    padding:5px ;
+    font-size: 2rem;
+    margin: 0.5rem 0;
+    border-radius: 5px;
+}
+.flash-success{
 
-label {
-    display: block;
+    background-color: forestgreen
+}
+.flash-error{
+    background-color: darkred;
 }
 
+label {
+    font-size: 1rem;
+    margin: 5rem .5rem .5rem 1rem;
+    width: 100%;
+}
+
+
 input,
-textarea,
 select {
     margin-bottom: 1rem;
     box-sizing: border-box;
     width: 150px;
     max-width: 50%;
 
+}
+
+.detail-sortie{
+    position: center;
+    font-size: 1.5em;
+    padding:5px;
+    width: calc(50% - 6rem);
+    display: inline-block;
+    text-align:center;
+    margin-left: 50px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+
+}
+.info-date{
+
+    flex-direction: column-reverse;
+}
+
+input[type="text"] {
+    margin: .8rem 1rem .5rem .5rem;
+    width:10rem
+}
+input[type ="search"]{
+    margin: .5rem 1rem .5rem .5rem;
+    width: calc(100% - 2rem);
+}
+button[type="submit"]{
+    margin: .5rem 1rem 2rem .5rem;
+    color: white;
+    background-color: #2196F3;
+    padding: .8em 2em .8em 2em;
+    border-radius: .2em ;
+}
+textarea{
+    margin: .8rem 1rem .5rem .5rem;
+    width: calc(50% - 20rem);
 }
