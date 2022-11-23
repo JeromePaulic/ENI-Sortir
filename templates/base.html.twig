@@ -11,10 +11,10 @@
 
 <body class="layout">
 <header>
-    <a href="{{ path('home') }}"><img src="{{ asset('img/logo.png') }}" class="logo" alt="Sortir.com"></a>
+    <a href="{{ path('sortie_list') }}"><img src="{{ asset('img/logo.png') }}" class="logo" alt="Sortir.com"></a>
     <nav class="navbar shadow-5 primary">
         <div class="navbar-menu ml-auto">
-            <a class="navbar-link" href="{{ path('home') }}">Accueil</a>
+            <a class="navbar-link" href="{{ path('sortie_list') }}">Accueil</a>
             {% if app.user %}
                 <a class="navbar-link" href="{{ path('profil') }}">Profil</a>
 

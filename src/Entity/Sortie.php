@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: SortieRepository::class)]
 class Sortie
@@ -239,6 +240,20 @@ class Sortie
     }
 
 
+    /**
+    * @param UserInterface $user
+    * @return bool
+    */
+    public function estinscrit(UserInterface $user): bool
+    {
+        foreach($this->getInscriptions() as $sub){
+            if ($sub->getParticipants() === $user){
+                return true;
+            }
+        }
+
+        return false;
+    }
 
 
 }

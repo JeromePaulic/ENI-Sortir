@@ -1,33 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} {{ parent() }}|  {% endblock %}
+{% block title %} {{ parent() }}| details {% endblock %}
 
 {% block body %}
 
     <h2> Afficher la sortie: {{ sortie.nom }}</h2>
-    <div>
+    <article class="detail-sortie">
     <div>
        Nom de la sortie: {{ sortie.nom }}
     </div>
         <div>
-            Date et heure de la sortie:  {{ sortie.dateHeureDebut | date ("d-m-Y à H:i")}}
+            Date et heure de la sortie:  {{ sortie.dateHeureDebut | date ("d/m/Y à H:i")}}
         </div>
         <div>
-            Date limite d'inscription {{ sortie.dateLimiteInscription|date ('d-m-Y') }}
+            Date limite d'inscription {{ sortie.dateLimiteInscription|date ('d/m/Y') }}
         </div>
         <div>
            Nombre de places {{ sortie.nbParticipantMax }}
         </div>
         <div>
-            Durée: {{ sortie.duree }} en minutes
+            Durée: {{ sortie.duree }}  minutes
         </div>
         <div>
             Description et infos: {{ sortie.infoSortie }}
         </div>
 
-    </div>
+    </article>
 
-    <div>
+    <article class="detail-sortie">
 
         <div>
            Campus: {{ sortie.campusOrganisateur.nom }}
@@ -47,21 +47,22 @@
             Longitude: {{ sortie.lieu.longitude}}
         </div>
 
-    </div>
+    </article>
 
     <article>
         <h3>Liste des particitants inscrits:</h3>
 
-    {#     <div>
+       <div>
         {% for inscription in sortie.inscriptions %}
             <div>
-                Nom {{  inscription.participants.nom }}
-                Prénom {{ inscription.pariticipant.prenom }}
+                Nom {{  inscription.participants.prenom ~' '~ inscription.participants.nom  }}
+
             </div>
                {% endfor %}
-               #}
 
-
+       </div>
     </article>
+
+   <button> <a href="{{ path('sortie_list') }}" title="retour">Retour</a></button>
 {% endblock %}
 
