@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
+<center>
     <h1>Modifier le profil de {{ app.user.prenom }} {{ app.user.nom }}</h1>
 
     <div>
@@ -9,11 +9,9 @@
 
     {{ form_widget(profilForm) }}
 
-        <button>Enregistrer</button>
+        <button class="btn blue rounded-1">Enregistrer</button>
 
     {{ form_end(profilForm) }}
     </div>
-
-
-
+</center>
 {% endblock %}

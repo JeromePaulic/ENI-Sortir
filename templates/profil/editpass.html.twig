@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<center>
+    <h1>Modifier le profil de {{ app.user.prenom }} {{ app.user.nom }}</h1>
+
+    <div>
+   <form method="post">
+       <div class="form-filed">
+           <label for="pass">Mot de passe</label>
+           <input type="password" id="pass" name="pass" class="form-control">
+       </div>
+       <div class="form-filed">
+           <label for="pass2">Confirmer le mot de passe</label>
+           <input type="password" id="pass2" name="pass2" class="form-control">
+       </div>
+       <button class="btn blue rounded-1">Valider</button>
+
+   </form>
+    </div>
+</center>
+{% endblock %}

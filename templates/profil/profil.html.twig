@@ -2,14 +2,21 @@
 
 {% block body %}
 
+    <center>
     <h1>Profil de {{ app.user.prenom }} {{ app.user.nom }} </h1>
-    <div>Pseudo :{{ app.user.pseudo }}</div>
-    <div>Nom : {{ app.user.nom }}</div>
-    <div>Prénom : {{ app.user.prenom }}</div>
-    <div>Email : {{ app.user.email }}</div>
+    <div><b>Pseudo :</b> {{ app.user.pseudo }}</div>
+    <br>
+    <div><b>Nom :</b> {{ app.user.nom }}</div>
+    <br>
+    <div><b>Prénom :</b> {{ app.user.prenom }}</div>
+    <br>
+    <div><b>Email :</b> {{ app.user.email }}</div>
+    <br>
+    <div><b>Téléphone :</b> {{ app.user.telephone }}</div>
+    <br>
+    <a class="btn blue rounded-1" href="{{ path('editprofil') }}" >Modifier le profil</a>
+    <a class="btn blue rounded-1" href="{{ path('editpass') }}" >Modifier le mot de passe</a>
 
-
-    <button><a href="{{ path('editprofil') }}" >Modifier le profil</a></button>
-
+    </center>
 
 {% endblock %}
