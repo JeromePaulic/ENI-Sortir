@@ -36,18 +36,21 @@ class ProfilController extends AbstractController
 
     public function editprofil(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $user = new User();
+        $user = $this->getUser();
         $profilForm = $this->createForm(ProfilType::class, $user);
-
 
         $profilForm->handleRequest($request);
 
-        if ($profilForm->isSubmitted()) {
+
+        if ($profilForm->isSubmitted() && $profilForm->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Profil mis à jour');
+            return $this->redirectToRoute('profil');
         }
 
-        //todo traiter le formulaire
 
         return $this->render('profil/editprofil.html.twig', [
             'profilForm' => $profilForm->createView()
@@ -77,11 +80,11 @@ class ProfilController extends AbstractController
             if($request->request->get('pass') == $request->request->get('pass2')){
                 $user->setPassword($passwordHasher->hashPassword($user, $request->request->get('pass')));
                 $em->flush();
-                $this->addFlash('message', 'Mot de passe mis à jour avec succès');
+                $this->addFlash('success', 'Mot de passe mis à jour avec succès');
 
                 return $this->redirectToRoute('profil');
             }else{
-                $this->addFlush('error', 'Les 2 mots de passe ne sont pas identiques');
+                $this->addFlash('error', 'Les 2 mots de passe ne sont pas identiques');
             }
         }
 

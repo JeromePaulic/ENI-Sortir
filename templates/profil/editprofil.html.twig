@@ -8,8 +8,10 @@
     {{ form_start(profilForm) }}
 
     {{ form_widget(profilForm) }}
-
-        <button class="btn blue rounded-1">Enregistrer</button>
+        <br>
+        <div><button class="btn blue rounded-1">Enregistrer</button></div>
+        <br>
+        <div><a class="btn blue rounded-1" href="{{ path('profil') }}" >Annuler</a></div>
 
     {{ form_end(profilForm) }}
     </div>

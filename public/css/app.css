@@ -3,7 +3,6 @@
     height : 100px;
     margin-left: 5px;
 }
-
 .flash{
     position: fixed;
     padding:5px ;
@@ -11,7 +10,6 @@
     margin: 10rem 0;
     border-radius: 5px;
 }
-
 .flash-success{
 
     background-color: forestgreen
@@ -22,9 +20,8 @@
 
 label {
     font-size: 1rem;
-    margin: .5rem 1rem .5rem .5rem;
-    width: calc(80% );
-    padding: .5rem;
+    margin: 5rem .5rem .5rem 1rem;
+    width: 100%;
 }
 
 
@@ -32,22 +29,32 @@ input,
 select {
     margin-bottom: 1rem;
     box-sizing: border-box;
-    width: 200px;
+    width: 150px;
     max-width: 50%;
 
 }
 
-input[type="number"]{
-    margin: .8rem 1rem .5rem .5rem;
-    width: calc(50% - 2rem);
+.detail-sortie{
+    position: center;
+    font-size: 1.5em;
+    padding:5px;
+    width: calc(50% - 6rem);
+    display: inline-block;
+    text-align:center;
+    margin-left: 50px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+
 }
-input[type="date"]{
-    margin: .8rem 1rem .5rem .5rem;
-    width: calc(40% - 2rem);
+.info-date{
+
+    flex-direction: column-reverse;
 }
+
 input[type="text"] {
     margin: .8rem 1rem .5rem .5rem;
-    width: calc(50% - 2rem);
+    width:10rem
 }
 input[type ="search"]{
     margin: .5rem 1rem .5rem .5rem;
@@ -56,28 +63,11 @@ input[type ="search"]{
 button[type="submit"]{
     margin: .5rem 1rem 2rem .5rem;
     color: white;
-    border-color: #2196F3 ;
     background-color: #2196F3;
-    padding: .5em 1em .5em 1em;
-    border-radius: .3em ;
-    font-size: 1.3rem;
+    padding: .8em 2em .8em 2em;
+    border-radius: .2em ;
 }
 textarea{
     margin: .8rem 1rem .5rem .5rem;
-    width: calc(90% - 20rem);
-}
-input[type="checkbox"]{
-    margin: auto;
-}
-
-.retour{
-    margin: .5rem 1rem 2rem .5rem;
-    padding: .5em 1em .5em 1em;
-}
-.detail-sortie{
-    margin: 2rem 3rem 1rem 5rem;
-    font-size:large;
-}
-h2{
-    color: #2196F3;
+    width: calc(50% - 20rem);
 }
