@@ -32,7 +32,7 @@ class SortieController extends AbstractController
 
         $sortieForm->handleRequest($request);
             if($sortieForm->isSubmitted() && $sortieForm->isValid()){
-                //todo géré l'état de la sortie peu-être avec un service?
+
 
                 $entityManager->persist($sortie);
                 $entityManager->flush();
@@ -50,12 +50,24 @@ class SortieController extends AbstractController
 
 
         #[Route('/sortie/surprimer/{id}', name: 'sortie_supprimer')]
-        public function supprimer (Sortie $sortie, EntityManagerInterface $entityManager)
+        public function supprimer (Sortie $sortie, EntityManagerInterface $entityManager,EtatRepository $etatRepository)
         {
+            //chamgement de statut de la sortie en annulée
+        $newEtat =$etatRepository->findOneBy(['libelle'=>'Annulée']);
+        $sortie->setEtat($newEtat);
+
+
+
             $entityManager-> remove($sortie);
             $entityManager->flush();
 
-            return $this ->redirectToRoute('');
+
+
+
+
+
+            $this ->addFlash('success', "oh non! votre sortie est bien anunlée");
+            return $this ->redirectToRoute('sortie_list');
         }
 
         #[Route('/sortie/details/{id}', name: 'sortie_details')]
@@ -97,20 +109,21 @@ class SortieController extends AbstractController
      * @Route("/{id}/publier", name="publish")
      */
     #[Route('/sortie/publish', name: 'sortie_publish')]
-    public function publish(Sortie $sortie, EntityManagerInterface $entityManager)
+    public function publish(Sortie $sortie, EntityManagerInterface $entityManager, EtatRepository $etatRepository)
     {
         //vérifie que c'est bien l'auteur (ou un admin) qui est en train de publier
         if ($this->getUser() !== $sortie->getOrganisateur() && !$this->isGranted("ROLE_ADMIN")) {
             throw $this->createAccessDeniedException("Seul l'auteur de cette sortie peut la publier !");
         }
-        $sortie->setEtat('ouverte');
+        $newEtat =$etatRepository->findOneBy(['libelle'=>'Ouverte']);
+        $sortie->setEtat($newEtat);
         $entityManager->persist($sortie);
         $entityManager->flush();
 
 
         $this->addFlash('success', 'La sortie est publiée !');
 
-        return $this->redirectToRoute('inscription_inscriptionoupas', ['id' => $sortie->getId()]);
+        return $this->redirectToRoute('sortie_details', ['id' => $sortie->getId()]);
     }
 
 

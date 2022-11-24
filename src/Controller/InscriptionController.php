@@ -19,9 +19,9 @@ class InscriptionController extends AbstractController
 
                                          ): Response
     {
-        $date= date('Y-m-d',time());
 
-        // vérification si sortie bien ouverte
+
+       // vérification si sortie bien ouverte
         if ($sortie->getEtat()->getLibelle() !== "Ouverte"){
             $this->addFlash("error", "Cette sortie n'est pas ouverte aux inscriptions !");
             return $this->redirectToRoute('sortie_details', ["id" => $sortie->getId()]);
@@ -38,13 +38,14 @@ class InscriptionController extends AbstractController
                 return $this ->redirectToRoute('sortie_details',['id'=>$sortie->getId()]);
 
             }
-     /*   //vérification si la date de cloture des inscription est passé
 
-        if ($sortie->getDateLimiteInscription() >= $date) {
+      //vérification si la date de cloture des inscription est passé
+
+        if ($sortie->getDateLimiteInscription() < new \DateTime()) {
             $this ->addFlash("error","Désolé,mais les inscriptions sont fermées!");
             return $this->redirectToRoute('sortie_details', ["id" => $sortie->getId()]);
         }
-*/
+
             //si non inscrit on l'incrit à la sortie
             //on vérifie si il reste des places
             if ($sortie->sortieComplete()){
@@ -61,7 +62,7 @@ class InscriptionController extends AbstractController
             $entityManager->flush();
 
 
-        // on refrech pour avoir le bon nombre d'incrit et on verifie si il rest des places sinon fermer la sortie
+        // on refrech pour avoir le bon nombre d'incrit
 
       $entityManager-> refresh($sortie);
 

@@ -1,40 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} {% endblock %}
+{% block title %}{{ parent()}} {% endblock %}
 
 {% block header %}
     {% if is_granted('ROLE_USER') %}
-        <div>
-            <h6> Date du jour: {{  "now"|date('d/m/Y') }}</h6>
-            <h6> Participant: {{ app.user.prenom }} {{ app.user.nom }}</h6>
+        <div class="grix xs4">
+            <h6 class ="pos-xs6"> Date du jour: {{  "now"|date('d/m/Y') }}</h6>
+            <h6 class ="pos-xs6"> Participant: {{ app.user.prenom }} {{ app.user.nom }}</h6>
         </div>
     {%  endif %}
 {% endblock %}
 
 {% block body %}
 
-    <h2>Les Sorties</h2>
-
-
-
+    <h2>Fliter Les Sorties : </h2>
 
 <div class="container ml-0 mr-0 pl-0 pr-0">
     {{ form_start(rechercheForm, {'attr': {'class': 'row'}}) }}
-    <div class="col col-sm-3 d-flex flex-column justify-content-end">
-        {{ form_row(rechercheForm.campus_nom, {attr: {class: 'form-control-sm'}}) }}
-        {{ form_row(rechercheForm.rechercher, {attr: {class: 'form-control-sm'}}) }}
+    <div class="grix xs2 mg4 ">
+        <div><b>{{ form_row(rechercheForm.campus_nom, {attr: {class: 'form-control-sm'}}) }}</b></div>
+        <div><b>{{ form_row(rechercheForm.rechercher, {attr: {class: 'form-control-sm'}}) }}</b></div>
     </div>
-    <div class="col col-sm-3 d-flex flex-column justify-content-end">
-        {{ form_row(rechercheForm.date_min, {attr: {class: 'form-control-sm'}}) }}
-        {{ form_row(rechercheForm.date_max, {attr: {class: 'form-control-sm'}}) }}
+    <div class="grix xs2 mg4 ">
+     <b>{{ form_row(rechercheForm.date_min, {attr: {class: 'form-control-sm'}}) }}</b>
+      <b>{{ form_row(rechercheForm.date_max, {attr: {class: 'form-control-sm'}}) }}</b>
     </div>
-    <div class="col col-sm-4 d-flex flex-column justify-content-start event-filters-checkboxes">
+    <div class="grix xs1 form-field">
 
-      {{ form_row(rechercheForm.je_suis_organisateur) }}
-       {{ form_row(rechercheForm.sortie_inscrit) }}
-        {{ form_row(rechercheForm.sortie_non_inscrit) }}
-        {{ form_row(rechercheForm.sortie_passee) }}
+     <div>{{ form_row(rechercheForm.je_suis_organisateur) }}</div>
+
+        <div>{{ form_row(rechercheForm.sortie_inscrit) }}</div>
+
+        <div>{{ form_row(rechercheForm.sortie_non_inscrit) }}</div>
+
+        <div>{{ form_row(rechercheForm.sortie_passee) }}</div>
     </div>
+
     <div class="col col-sm d-flex flex-column justify-content-end">
         {{ form_row(rechercheForm.submit) }}
     </div>
@@ -42,9 +43,9 @@
 </div>
 
 {% if rechercheSorties %}
-<table class="table table-striped table-sm event-table">
+<table class="table table-striped table-sm event-table" >
     <tr>
-        <th>Intitulé</th>
+        <th>Nom de la Sortie</th>
         <th>Statut</th>
         <th class="d-none d-lg-table-cell">Inscrits</th>
         <th class="d-none d-md-table-cell">Places restantes</th>
@@ -74,7 +75,6 @@
 
             {% elseif sortie.etat.libelle == 'créée' and sortie.organisateur == app.user %}
                 <a href="{{ path('sortie_publish', {'id': sortie.id}) }}">Publier</a>
-                <a href="#">Modifier</a>
             {% endif %}
             {% if sortie.organisateur == app.user %}
                 <a href="{{ path('sortie_supprimer', {'id': sortie.id}) }}">Annuler</a>
@@ -91,7 +91,7 @@
     <div>Aucune sortie !</div>
 {% endif %}
 <br>
-  <button>  <a href="{{ path('sortie_cree') }}"title="crer-sortie">Créer une sortie</a></button>
+   <a class="btn blue rounded-1"href="{{ path('sortie_cree') }}"title="crer-sortie">Créer une sortie</a>
     <br>
 
 {% endblock %}

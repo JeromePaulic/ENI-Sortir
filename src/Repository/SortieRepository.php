@@ -135,9 +135,6 @@ public function trouverJointure(int $id)
             ->addSelect('o');
 
 
-        dump($queryBuilder->getDQL());
-
-
         //la plus proche dans le temps en 1er
 
         $queryBuilder->orderBy('s.dateHeureDebut', 'ASC');
