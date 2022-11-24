@@ -64,8 +64,7 @@ class Sortie
     #[ORM\OneToMany(mappedBy: 'sortie', targetEntity: Inscription::class,cascade: ['remove'])]
     private Collection $inscriptions;
 
-    #[ORM\OneToOne(mappedBy: 'sortie', cascade: ['persist', 'remove'])]
-    private ?Annulation $annulation = null;
+
 
 
 
@@ -258,27 +257,7 @@ class Sortie
         return false;
     }
 
-    public function getAnnulation(): ?Annulation
-    {
-        return $this->annulation;
-    }
 
-    public function setAnnulation(?Annulation $annulation): self
-    {
-        // unset the owning side of the relation if necessary
-        if ($annulation === null && $this->annulation !== null) {
-            $this->annulation->setSortie(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($annulation !== null && $annulation->getSortie() !== $this) {
-            $annulation->setSortie($this);
-        }
-
-        $this->annulation = $annulation;
-
-        return $this;
-    }
 
 
 }

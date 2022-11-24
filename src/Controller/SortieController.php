@@ -29,8 +29,9 @@ class SortieController extends AbstractController
         $sortie ->setOrganisateur($this->getUser());
 
         $sortieForm = $this-> createForm(SortieType::class,$sortie);
-
+            dump($sortie);
         $sortieForm->handleRequest($request);
+            dump($sortie);
             if($sortieForm->isSubmitted() && $sortieForm->isValid()){
 
 
@@ -53,18 +54,11 @@ class SortieController extends AbstractController
         public function supprimer (Sortie $sortie, EntityManagerInterface $entityManager,EtatRepository $etatRepository)
         {
             //chamgement de statut de la sortie en annulée
-        $newEtat =$etatRepository->findOneBy(['libelle'=>'Annulée']);
-        $sortie->setEtat($newEtat);
-
-
+       // $newEtat =$etatRepository->findOneBy(['libelle'=>'Annulée']);
+       // $sortie->setEtat($newEtat);
 
             $entityManager-> remove($sortie);
             $entityManager->flush();
-
-
-
-
-
 
             $this ->addFlash('success', "oh non! votre sortie est bien anunlée");
             return $this ->redirectToRoute('sortie_list');

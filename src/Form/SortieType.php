@@ -39,8 +39,6 @@ class SortieType extends AbstractType
                 'label' => "Date limite d'incription ",
                  'html5'=>true,
                 'widget'=>'single_text'
-
-
             ])
 
             ->add('infoSortie',TextareaType::class,[
